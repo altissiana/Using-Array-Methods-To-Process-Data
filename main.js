@@ -1,82 +1,44 @@
-// question 1
+//1. What is the average price of all items?
 
-var sum = items.reduce(function(a,b){
-    return a + b.price
-}, 0)
-
-var avg = sum / items.length
+var avg = items.reduce((a, b) => a + b.price, 0) / items.length
 
 document.querySelector("#answer1").innerHTML = `The average price is $${avg.toFixed(2)}`
 
-////////////////////////////////////////////////////////////////
-// question 2
+//2. Show me an array of items that cost between $14.00 and $18.00 USD?
 
-var costBetween = items.filter(function(item){
-    if(item.price > 14 && item.price < 18){
-        return true
-    }else{
-        return false
-    }
-}).map(function(item){
-    return item.title
-}).join("<br><br>")
- 
+var costBetween =
+    items.filter(item => item.price < 18 && item.price > 14 && item.currency_code
+        === "USD").map(item => item.title).join("\n\n")
 
-document.querySelector("#answer2").innerHTML = `${costBetween}`
+document.querySelector("#answer2").innerHTML = costBetween
 
-////////////////////////////////////////////////////////////////
-// question 3
+//3. Which item has a "GBP" currency code? Display it's name and price.
 
-var result = items.filter(function(item){
-    if(item.currency_code = "GBP"){
-        return true
-    }else{
-        return false
-    }
-})[0]
+var gbpitem =
+    items.filter(item => item.currency_code === "GBP")[0]
 
-console.log(result);
+document.querySelector("#answer3").innerHTML = `${item.title} cost &pound;${gbpitem.price}`
 
-document.querySelector("#answer3").innerHTML = `${result.title}&pound;${result}`
+//4. Display a list of all items who are made of wood.
 
+var wooditems =
+    items.filter(item => item.materials.includes("wood")).map(item.title + "is made of wood.")
+        .join("\n\n")
 
-////////////////////////////////////////////////////////////////
-// question 4
+document.querySelector("#answer4").innerHTML = wooditems
 
-var wood = items.filter(function(item){
-    if(item.materials.includes('wood')){
-        return true
-    }else{
-        return false
-    }
-})
+//5. Which items are made of eight or more materials? Display the name, number of items and the items it is made of.
 
+var eightormore =
+    items
+        .filter(item => item.materials.length >= 8)
+        .map(item => `${item.name} has ${item.materials.length} materials:<br>${item.materials.join("<br>")}`)
+        .join("<br><br>")
 
-document.querySelector("#answer4").innerHTML =${}
+document.querySelector("#answer5").innerHTML = eightormore
 
+//6. How many items were made by their sellers?
 
-////////////////////////////////////////////////////////////////
-// question 5
+var madebysellers = items.filter(item => item.who_made === "i_did").length
 
-var mat= items.filter(function(item){
-    if(item.material.length >= 8){
-        return true
-    }else{
-        return false 
-    }
-})
-
-
-////////////////////////////////////////////////////////////////
-// question 6
-
-var who = items. filter(function(item){
-    if(item.material.who_made = "i_did"){
-        return true
-    }else{
-        return false
-    }
-
-})
-
-
+document.querySelector("#answer6").innerHTML = `${madebysellers} were made by their sellers`
